@@ -12,7 +12,6 @@
     <InformationalVersion>$(VersionPrefix)</InformationalVersion>
     <Company>FkThat</Company>
     <Copyright>© FkThat, 2022</Copyright>
-    <Description>Mockables</Description>
     <!-- Package -->
     <IsPackable>false</IsPackable>
     <PackRelease>true</PackRelease>
@@ -22,7 +21,6 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/fkthat/Mockables</PackageProjectUrl>
     <PackageReleaseNotes>@(ReleaseNotes, '%0a')</PackageReleaseNotes>
-    <PackageTags></PackageTags>
   </PropertyGroup>
   <!-- Read RELEASE-NOTES -->
   <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec"
