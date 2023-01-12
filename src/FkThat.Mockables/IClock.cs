@@ -3,7 +3,7 @@ namespace FkThat.Libs.Mockables;
 /// <summary>
 /// System clock.
 /// </summary>
-public interface ISystemClock
+public interface IClock
 {
     /// <summary>
     /// Gets a System.DateTimeOffset object whose date and time are set to the current Coordinated
