@@ -6,6 +6,9 @@ on:
 jobs:
   release:
     name: Release
+    permissions:
+      packages: write
+      contents: read
     uses: ./.github/workflows/common.yml
     with:
       release: true
