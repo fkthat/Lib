@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace FkThat.Libs.Mockables;
+namespace FkThat.Mockables;
 
 /// <summary>
 /// Extension methods for <c cref="IRandomGen"/>.

@@ -1,4 +1,4 @@
-namespace FkThat.Libs.Mockables;
+namespace FkThat.Mockables;
 
 /// <inheritdoc/>
 public class SystemClock : IClock

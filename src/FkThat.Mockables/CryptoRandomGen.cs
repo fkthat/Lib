@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
-namespace FkThat.Libs.Mockables;
+namespace FkThat.Mockables;
 
 /// <summary>
 /// Secure random number generator.

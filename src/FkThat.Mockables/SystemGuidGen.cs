@@ -1,4 +1,4 @@
-namespace FkThat.Libs.Mockables;
+namespace FkThat.Mockables;
 
 /// <summary>
 /// Standard GUID generator.

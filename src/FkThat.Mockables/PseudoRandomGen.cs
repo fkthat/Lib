@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace FkThat.Libs.Mockables;
+namespace FkThat.Mockables;
 
 /// <summary>
 /// Random number generator that uses <c cref="Random"/>.
