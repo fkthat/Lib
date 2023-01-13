@@ -4,13 +4,44 @@ on:
     branches:
       -main
 jobs:
-  release:
-    name: Release
-    permissions:
-      packages: write
-      contents: read
-    uses: ./.github/workflows/common.yml
+  set_vars:
+    name: Set workflow variables
+    runs-on: ubuntu-latest
+    outputs:
+      timestamp: ${{steps.set_vars.outputs.timestemp}}
+    steps:
+      id: set_vars
+      run: date -u +timestamp=Build-%Y%m%d-%H%M%S-%3N >> $GITHUB_OUTPUT
+  build:
+    name: Run build.yml
+    needs:
+      - set_vars
+    uses: ./.github/workflows/build.yml
     with:
-      release: true
+      upload_artifacts: Build-${{needs.set_vars.outputs.timestamp}}
     secrets:
       REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
+  publish:
+    name: Publish artifacts
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.102
+      - name: Setup NuGet
+        run: >-
+          dotnet nuget add source https://nuget.pkg.github.com/fkthat/index.json
+          -n github -u fkthat -p $REGISTRY_PAT --store-password-in-clear-text
+        env:
+          REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: Build-${{needs.set_vars.outputs.timestamp}}
+          path: artifacts/
+#     - name: Push NuGet
+#       if: inputs.release
+#       run: dotnet nuget push artifacts/*.nupkg -s github
