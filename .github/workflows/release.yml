@@ -5,8 +5,8 @@ jobs:
   build:
     name: Build
     uses: ./.github/workflows/build.yml
-      secrets:
-        REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
+    secrets:
+      REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
   publish:
     runs-on: ubuntu-latest
     steps:
