@@ -22,8 +22,8 @@ jobs:
           REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
       - name: Download
         uses: actions/download-artifact@v3
-          with:
-            name: Build
-            path: artifacts/
+        with:
+          name: Build
+          path: artifacts/
       - name: Push
         run: echo dotnet nuget push artifacts/*.nupkg -s github
