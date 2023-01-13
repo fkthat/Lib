@@ -8,13 +8,8 @@ on:
     branches:
       - main
 jobs:
-  ci:
-    name: CI
-    permissions:
-      packages: write
-      contents: read
-    uses: ./.github/workflows/common.yml
-    with:
-      release: false
+  build:
+    name: Run build.yml
+    uses: ./.github/workflows/build.yml
     secrets:
       REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}

@@ -1,22 +1,17 @@
-name: Common
+name: Build
 on:
   workflow_call:
     inputs:
-      release:
-        description: Publish release.
+      upload_artifacts:
         required: false
-        type: boolean
-        default: false
+        type: string
     secrets:
       REGISTRY_PAT:
         required: true
 jobs:
-  common:
-    name: Common
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
     steps:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
@@ -28,16 +23,19 @@ jobs:
           -n github -u fkthat -p $REGISTRY_PAT --store-password-in-clear-text
         env:
           REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Restore
+      - name: Restore NuGet packages
         run: dotnet restore
-      - name: Build
+      - name: Build solution
         run: dotnet build -c Release --no-restore
-      - name: Test
+      - name: Run tests
         run: dotnet test -c Release --no-build
-      - name: Pack
-        run: dotnet pack -c Release --no-build
-      - name: Push NuGet
-        if: inputs.release
-        run: dotnet nuget push **/*.nupkg -s github
+      - name: Create NuGet packages
+        run: dotnet pack -c Release --no-build -o artifacts
+      - name: Upload artifacts
+        if: inputs.upload_artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{inputs.upload_artifacts}}
+          path: artifacts/
