@@ -26,4 +26,4 @@ jobs:
           name: Build
           path: artifacts/
       - name: Push
-        run: echo dotnet nuget push artifacts/*.nupkg -s github
+        run: echo 111 dotnet nuget push artifacts/*.nupkg -s github
