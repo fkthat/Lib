@@ -1,30 +1,13 @@
 name: Release
 on:
   workflow_dispatch:
-    branches:
-      -main
 jobs:
-  set_vars:
-    name: Set workflow variables
-    runs-on: ubuntu-latest
-    outputs:
-      timestamp: ${{steps.set_vars.outputs.timestemp}}
-    steps:
-      id: set_vars
-      run: date -u +timestamp=Build-%Y%m%d-%H%M%S-%3N >> $GITHUB_OUTPUT
   build:
-    name: Run build.yml
-    needs:
-      - set_vars
+    name: Build
     uses: ./.github/workflows/build.yml
-    with:
-      upload_artifacts: Build-${{needs.set_vars.outputs.timestamp}}
-    secrets:
-      REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
+      secrets:
+        REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
   publish:
-    name: Publish artifacts
-    needs:
-      - build
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET SDK
@@ -37,11 +20,10 @@ jobs:
           -n github -u fkthat -p $REGISTRY_PAT --store-password-in-clear-text
         env:
           REGISTRY_PAT: ${{secrets.REGISTRY_PAT}}
-      - name: Download artifacts
+      - name: Download
         uses: actions/download-artifact@v3
-        with:
-          name: Build-${{needs.set_vars.outputs.timestamp}}
-          path: artifacts/
-#     - name: Push NuGet
-#       if: inputs.release
-#       run: dotnet nuget push artifacts/*.nupkg -s github
+          with:
+            name: Build
+            path: artifacts/
+      - name: Push
+        run: echo dotnet nuget push artifacts/*.nupkg -s github
