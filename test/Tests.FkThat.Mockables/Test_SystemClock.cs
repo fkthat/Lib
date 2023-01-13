@@ -22,7 +22,13 @@ public class Test_SystemClock
     public void UtcNow_should_return_UTC_time()
     {
         SystemClock sut = new();
-        var r = sut.UtcNow;
-        r.Offset.Should().Be(TimeSpan.Zero);
+        sut.UtcNow.Offset.Should().Be(TimeSpan.Zero);
+    }
+
+    [Fact]
+    public void TimeZone_should_return_local_time_zone()
+    {
+        SystemClock sut = new();
+        sut.TimeZone.Should().Be(TimeZoneInfo.Local);
     }
 }
