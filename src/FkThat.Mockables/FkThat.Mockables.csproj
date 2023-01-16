@@ -1,5 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <IsPackable>true</IsPackable>
+    <VersionPrefix>0.0.2</VersionPrefix>
+    <Description>A simple library of mocking-friendly wrappers over .NET types.</Description>
   </PropertyGroup>
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageTags>tdd;mocks</PackageTags>
+    <PackageReleaseNotes>@(ReleaseNotes, '%0a')</PackageReleaseNotes>
+  </PropertyGroup>
+  <!-- Read RELEASE-NOTES -->
+  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec"
+    Condition="Exists('$(MSBuildThisFileDirectory)RELEASE-NOTES')">
+    <ReadLinesFromFile File="$(MSBuildThisFileDirectory)RELEASE-NOTES" >
+      <Output TaskParameter="Lines" ItemName="ReleaseNotes"/>
+    </ReadLinesFromFile>
+  </Target>
 </Project>

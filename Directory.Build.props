@@ -1,32 +1,19 @@
 <Project>
-  <Import Project="$(MSBuildThisFileDirectory)Version.props"/>
   <PropertyGroup>
     <!-- Build -->
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- Assembly -->
-    <Product>Mockables</Product>
-    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
-    <FileVersion>$(VersionPrefix)</FileVersion>
-    <InformationalVersion>$(VersionPrefix)</InformationalVersion>
+    <Product>Lib</Product>
     <Company>FkThat</Company>
     <Copyright>© FkThat, 2022</Copyright>
     <!-- Package -->
     <IsPackable>false</IsPackable>
-    <PackRelease>true</PackRelease>
     <Authors>FkThat</Authors>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/fkthat/Mockables</RepositoryUrl>
+    <RepositoryUrl>https://github.com/fkthat/Lib</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/fkthat/Mockables</PackageProjectUrl>
-    <PackageReleaseNotes>@(ReleaseNotes, '%0a')</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/fkthat/Lib</PackageProjectUrl>
   </PropertyGroup>
-  <!-- Read RELEASE-NOTES -->
-  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec"
-    Condition="Exists('$(MSBuildThisFileDirectory)RELEASE-NOTES')">
-    <ReadLinesFromFile File="$(MSBuildThisFileDirectory)RELEASE-NOTES" >
-      <Output TaskParameter="Lines" ItemName="ReleaseNotes"/>
-    </ReadLinesFromFile>
-  </Target>
 </Project>
