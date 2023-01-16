@@ -1,7 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <VersionPrefix>0.0.1</VersionPrefix>
-    <Description>A simple library of mocking-friendly wrappers over .NET types.</Description>
-    <PackageTags>tdd;mocks</PackageTags>
-  </PropertyGroup>
-</Project>
